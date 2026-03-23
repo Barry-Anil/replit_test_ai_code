@@ -37,7 +37,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section id="faqs" className="py-24 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="flex flex-col md:flex-row gap-12">
           

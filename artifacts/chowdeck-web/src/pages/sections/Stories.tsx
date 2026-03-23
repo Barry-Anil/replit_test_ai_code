@@ -32,7 +32,7 @@ export function Stories() {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section id="blog" className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-end mb-12">
           <h2 className="text-4xl md:text-5xl font-black">Stories</h2>

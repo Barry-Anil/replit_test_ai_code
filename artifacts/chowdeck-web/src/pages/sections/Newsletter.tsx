@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 
 export function Newsletter() {
   return (
-    <section className="py-24 bg-primary text-white">
+    <section id="contact" className="py-24 bg-primary text-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           

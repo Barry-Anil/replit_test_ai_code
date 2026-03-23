@@ -8,7 +8,7 @@ export function Features() {
     "Quality meal choices",
     "Live updates on orders",
     "Highly rated riders",
-    "24/7 support for customers and vendors"
+    "20/7 support for customers and vendors"
   ];
 
   return (
