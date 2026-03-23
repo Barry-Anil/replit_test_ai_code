@@ -1,31 +1,54 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export function Categories() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
   const categories = [
     {
       id: "01",
       title: "African Food",
       color: "bg-orange-100",
-      /* food plate top view */
       image: "https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&h=400&fit=crop"
     },
     {
       id: "02",
       title: "Continental",
       color: "bg-blue-100",
-      /* pasta dish */
       image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&h=400&fit=crop"
     },
     {
       id: "03",
       title: "Fast Food",
       color: "bg-red-100",
-      /* burger and fries */
       image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=400&fit=crop"
     }
   ];
+
+  const checkScrollState = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", checkScrollState, { passive: true });
+    checkScrollState();
+    return () => el.removeEventListener("scroll", checkScrollState);
+  }, []);
+
+  const scrollBy = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardWidth = el.querySelector("div")?.offsetWidth ?? 360;
+    el.scrollBy({ left: direction === "left" ? -cardWidth - 24 : cardWidth + 24, behavior: "smooth" });
+  };
 
   return (
     <section className="py-24 bg-gray-50 overflow-hidden">
@@ -33,16 +56,29 @@ export function Categories() {
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-4xl md:text-5xl font-black">Explore categories</h2>
           <div className="hidden md:flex gap-3">
-            <button className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-white hover:shadow-md transition-all">
+            <button
+              onClick={() => scrollBy("left")}
+              disabled={!canScrollLeft}
+              aria-label="Previous category"
+              className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-white hover:shadow-md transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            >
               <ArrowLeft size={20} />
             </button>
-            <button className="w-12 h-12 rounded-full bg-foreground text-white flex items-center justify-center hover:bg-foreground/90 transition-all shadow-md hover:-translate-y-0.5">
+            <button
+              onClick={() => scrollBy("right")}
+              disabled={!canScrollRight}
+              aria-label="Next category"
+              className="w-12 h-12 rounded-full bg-foreground text-white flex items-center justify-center hover:bg-foreground/90 transition-all shadow-md hover:-translate-y-0.5 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
               <ArrowRight size={20} />
             </button>
           </div>
         </div>
 
-        <div className="flex overflow-x-auto hide-scrollbar gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory">
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto hide-scrollbar gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory"
+        >
           {categories.map((cat, i) => (
             <motion.div
               key={cat.id}
@@ -54,9 +90,9 @@ export function Categories() {
             >
               <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6">
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10" />
-                <img 
-                  src={cat.image} 
-                  alt={cat.title} 
+                <img
+                  src={cat.image}
+                  alt={cat.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
