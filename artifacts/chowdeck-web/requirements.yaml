@@ -1,0 +1,22 @@
+packages:
+  "framer-motion": "For smooth scroll, hover, and layout animations across the landing page."
+  "lucide-react": "For beautiful, consistent iconography in feature cards, buttons, and UI elements."
+  "clsx": "For composing dynamic Tailwind classes."
+  "tailwind-merge": "For merging Tailwind classes efficiently."
+
+images:
+  - path: "artifacts/chowdeck-web/public/images/hero-phone.png"
+    description: "A sleek, stylized 3D render of a modern smartphone displaying a clean, vibrant green food delivery app interface, floating dynamically against a very light subtle green background with soft studio lighting."
+    aspect_ratio: "3:4"
+  - path: "artifacts/chowdeck-web/public/images/map-illustration.png"
+    description: "A stylized, abstract, and colorful vector map illustration of city roads and neighborhoods, using a palette of soft cream, vibrant green, and pale yellow, suitable for placing location pins over."
+    aspect_ratio: "16:9"
+  - path: "artifacts/chowdeck-web/public/images/feature-delivery.png"
+    description: "A 3D stylized illustration of a vibrant green food delivery bag next to a modern electric scooter, floating softly on a transparent background."
+    aspect_ratio: "1:1"
+
+notes:
+  - This is a static marketing landing page; all content is hardcoded based on the provided design spec.
+  - No backend API integration is required.
+  - Used native CSS columns for the masonry layout of testimonials.
+  - Used Framer Motion for the FAQ accordion and hero tab transitions.
